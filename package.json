@@ -1,0 +1,23 @@
+{
+  "name": "rub_oil",
+  "version": "1.0.0",
+  "description": "Investigating correlation between Russian ruble and oil price.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify ./src/index.js -o ./lib/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nslobodchuk/rub_oil.git"
+  },
+  "author": "Nikolay Slobodchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nslobodchuk/rub_oil/issues"
+  },
+  "homepage": "https://github.com/nslobodchuk/rub_oil#readme",
+  "devDependencies": {
+    "browserify": "^14.3.0"
+  }
+}
