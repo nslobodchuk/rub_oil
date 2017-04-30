@@ -16674,7 +16674,60 @@ Object.defineProperty(exports, '__esModule', { value: true });
 })));
 
 },{}],2:[function(require,module,exports){
-var d3 = require("d3");
- console.log(d3);
 
-},{"d3":1}]},{},[2]);
+
+function app(rubData, oilData){
+	console.log(rubData);
+	console.log(oilData);
+}
+
+module.exports = app;
+},{}],3:[function(require,module,exports){
+var d3 = require("d3");
+var get = require("./utils/get.js");
+var app = require("./app.js");
+
+var loading = d3.select("#app").append("p").text("Loading");
+
+Promise.all([get("data/rub.tsv"), get("data/oil.tsv")]).then(function(results){
+	setTimeout(loading.remove.bind(loading), 5000);
+	app(d3.tsvParse(results[0]), d3.tsvParse(results[1]));
+
+});
+
+},{"./app.js":2,"./utils/get.js":4,"d3":1}],4:[function(require,module,exports){
+function get(url) {
+  // Return a new promise.
+  return new Promise(function(resolve, reject) {
+    // Do the usual XHR stuff
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+
+    req.onload = function() {
+      // This is called even on 404 etc
+      // so check the status
+      if (req.status == 200) {
+        // Resolve the promise with the response text
+        resolve(req.response);
+      }
+      else {
+        // Otherwise reject with the status text
+        // which will hopefully be a meaningful error
+        reject(Error(req.statusText));
+      }
+    };
+
+    // Handle network errors
+    req.onerror = function() {
+      reject(Error("Network Error"));
+    };
+
+    // Make the request
+    req.send();
+  });
+}
+
+module.exports = get;
+
+
+},{}]},{},[3]);
